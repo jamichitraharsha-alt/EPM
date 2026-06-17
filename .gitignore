@@ -1,19 +1,88 @@
+# =========================
+# Node.js
+# =========================
 node_modules/
-target/
-_out/
+package-lock.json
+
+# =========================
+# CAP Generated Files
+# =========================
 gen/
+_out/
+target/
+app/*/dist/
+@cds-models/
 
-.cdsrc-private.json
-default-*.json
+# =========================
+# Database Files
+# =========================
+*.db
 *.sqlite
+db/*.db
+db/*.sqlite
+epm.db
+db.sqlite
 
-# MTA
+# =========================
+# Environment & Secrets
+# =========================
+.env
+.env.*
+default-env.json
+default-*.json
+.cdsrc-private.json
+
+*.pem
+*.key
+*.p12
+*.crt
+
+# =========================
+# MTA Build Artifacts
+# =========================
 mta_archives/
-*_mta_build_tmp
+*_mta_build_tmp/
 *.mtar
 
-# Other
-.DS_Store
+# =========================
+# IDE Files
+# =========================
+.vscode/
+.idea/
 
-# @cap-js/cds-typer
-@cds-models
+*.swp
+*.swo
+*~
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =========================
+# Coverage & Testing
+# =========================
+coverage/
+.nyc_output/
+
+# =========================
+# Temporary Files
+# =========================
+tmp/
+temp/
+.cache/
+
+# =========================
+# Build Output
+# =========================
+dist/
+build/
