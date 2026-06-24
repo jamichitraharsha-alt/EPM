@@ -1,0 +1,87 @@
+### ═══════════════════════════════════════
+### TEST AS VIEWER (read-only access)
+### ═══════════════════════════════════════
+
+### ✅ Should SUCCEED 200
+GET http://localhost:4004/purchasing/PurchaseOrders
+Authorization: Basic dmlld2VyOnZpZXdlcg==
+
+###
+
+### ❌ Should FAIL 403 (Viewer can't CREATE)
+POST http://localhost:4004/purchasing/PurchaseOrders
+Authorization: Basic dmlld2VyOnZpZXdlcg==
+Content-Type: application/json
+
+{ "poNumber": "PO-TEST", "status": "Draft" }
+
+###
+
+### ❌ Should FAIL 403 (Viewer can't access Suppliers)
+GET http://localhost:4004/purchasing/Suppliers
+Authorization: Basic dmlld2VyOnZpZXdlcg==
+
+
+### ═══════════════════════════════════════
+### TEST AS MANAGER
+### ═══════════════════════════════════════
+
+###
+
+### ✅ Should SUCCEED 200
+GET http://localhost:4004/purchasing/PurchaseOrders
+Authorization: Basic bWFuYWdlcjptYW5hZ2Vy
+
+###
+
+### ✅ Should SUCCEED 201
+POST http://localhost:4004/purchasing/PurchaseOrders
+Authorization: Basic bWFuYWdlcjptYW5hZ2Vy
+Content-Type: application/json
+
+{ "poNumber": "PO-MGR-001", "status": "Draft" }
+
+###
+
+### ❌ Should FAIL 403 (Manager can't access Suppliers)
+GET http://localhost:4004/purchasing/Suppliers
+Authorization: Basic bWFuYWdlcjptYW5hZ2Vy
+
+###
+
+### ❌ Should FAIL 403 (Manager can't DELETE)
+DELETE http://localhost:4004/purchasing/PurchaseOrders(00000000-0000-0000-0000-000000000000)
+Authorization: Basic bWFuYWdlcjptYW5hZ2Vy
+
+
+### ═══════════════════════════════════════
+### TEST AS ADMIN
+### ═══════════════════════════════════════
+
+###
+
+### ✅ Should SUCCEED 200
+GET http://localhost:4004/purchasing/PurchaseOrders
+Authorization: Basic YWRtaW46YWRtaW4=
+
+###
+
+### ✅ Should SUCCEED 200 (Admin can access Suppliers)
+GET http://localhost:4004/purchasing/Suppliers
+Authorization: Basic YWRtaW46YWRtaW4=
+
+###
+
+### ❌ Should FAIL 404 (uuid doesn't exist, but NOT 403 — Admin has DELETE permission)
+DELETE http://localhost:4004/purchasing/PurchaseOrders(00000000-0000-0000-0000-000000000000)
+Authorization: Basic YWRtaW46YWRtaW4=
+
+
+### ═══════════════════════════════════════
+### TEST WITHOUT AUTH
+### ═══════════════════════════════════════
+
+###
+
+### ❌ Should FAIL 401
+GET http://localhost:4004/purchasing/PurchaseOrders

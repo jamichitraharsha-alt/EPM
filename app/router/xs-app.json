@@ -1,0 +1,19 @@
+{
+  "welcomeFile": "/purchase/index.html",
+  "authenticationMethod": "none",
+  "routes": [
+    {
+      "source": "^/purchase/(.*)$",
+      "target": "/purchase/$1",
+      "destination": "srv-api",
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/purchasing/(.*)$",
+      "target": "/purchasing/$1",
+      "destination": "srv-api",
+      "authenticationType": "none",
+      "csrfProtection": false
+    }
+  ]
+}
